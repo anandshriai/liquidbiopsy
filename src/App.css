@@ -1,10 +1,16 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+* {
+  font-family: 'Cormorant Garamond', serif;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .logo {
@@ -21,12 +27,8 @@
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,10 +37,5 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+.card { padding: 2em; }
+.read-the-docs { color: #888; }

@@ -3,10 +3,10 @@ import { useState } from 'react'
 const STEPS = [
   {
     id: '01', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe',
-    title: 'Blood Sample',
-    sub: 'Collection',
-    desc: 'A simple 10ml peripheral blood draw. Our cfDNA extraction achieves >95% recovery with minimal degradation — no invasive tissue biopsy needed.',
-    tags: ['cfDNA','cfRNA','Exosomes'],
+    title: 'Retrospective Training',
+    sub: 'Phase 1',
+    desc: 'Multi-center retrospective dataset integration from U.S. academic institutions. Development of longitudinal ctDNA-based predictive models across NSCLC, colorectal, breast, and pancreatic cancers.',
+    tags: ['Multi-Center Data','ctDNA Kinetics','Model Development'],
     icon: (
       <svg viewBox="0 0 40 40" className="w-9 h-9" fill="none">
         <circle cx="20" cy="20" r="16" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1.5"/>
@@ -17,10 +17,10 @@ const STEPS = [
   },
   {
     id: '02', color: '#0891b2', bg: '#f0fdfa', border: '#99f6e4',
-    title: 'Sequencing',
-    sub: 'Multi-Omic',
-    desc: 'Ultra-deep targeted sequencing at 50,000× coverage with whole-methylome profiling and RNA-seq — detecting mutations down to 0.01% VAF.',
-    tags: ['SNV','CNV','Methylation','Fusion'],
+    title: 'Prospective Study',
+    sub: 'Phase 2',
+    desc: 'Prospective observational validation of real-time molecular response prediction. Correlation with imaging outcomes and benchmarking using external validation datasets.',
+    tags: ['Real-Time Prediction','Imaging Correlation','External Validation'],
     icon: (
       <svg viewBox="0 0 40 40" className="w-9 h-9" fill="none">
         <circle cx="20" cy="20" r="16" fill="#f0fdfa" stroke="#99f6e4" strokeWidth="1.5"/>
@@ -33,10 +33,10 @@ const STEPS = [
   },
   {
     id: '03', color: '#4f46e5', bg: '#eef2ff', border: '#c7d2fe',
-    title: 'AI Analysis',
-    sub: 'Deep Learning',
-    desc: 'Our 1.2B-parameter transformer model — trained on 2.4M+ clinical samples — integrates multi-modal features to generate comprehensive tumor signatures.',
-    tags: ['Transformer','Multi-modal','Explainable AI'],
+    title: 'Clinical Deployment',
+    sub: 'Phase 3',
+    desc: 'Deployment of AI-assisted treatment monitoring dashboard with early molecular resistance alerts and integration into hospital clinical workflows.',
+    tags: ['Monitoring Dashboard','Resistance Alerts','Hospital Integration'],
     icon: (
       <svg viewBox="0 0 40 40" className="w-9 h-9" fill="none">
         <circle cx="20" cy="20" r="16" fill="#eef2ff" stroke="#c7d2fe" strokeWidth="1.5"/>
@@ -50,10 +50,10 @@ const STEPS = [
   },
   {
     id: '04', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd',
-    title: 'Clinical Report',
-    sub: 'Actionable',
-    desc: 'Oncologist-ready reports with variant classification, treatment response predictions, resistance mechanisms, and clinical trial matching — in under 14 hours.',
-    tags: ['ACMG','Trial Match','EHR Ready'],
+    title: 'Global Research Platform',
+    sub: 'Phase 4',
+    desc: 'Expansion into a global open research ecosystem with open-source AI engine access, federated learning infrastructure, and collaborative oncology research tools.',
+    tags: ['Open-Source Engine','Federated Learning','Global Collaboration'],
     icon: (
       <svg viewBox="0 0 40 40" className="w-9 h-9" fill="none">
         <circle cx="20" cy="20" r="16" fill="#f0f9ff" stroke="#bae6fd" strokeWidth="1.5"/>
@@ -74,12 +74,12 @@ export default function PipelineSection() {
     <section id="pipeline" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="pill mb-4 block w-fit mx-auto">How It Works</span>
+          <span className="pill mb-4 block w-fit mx-auto">Clinical Development</span>
           <h2 className="font-display font-800 text-4xl text-slate-900">
-            The BiopsAI <span className="text-gradient">Pipeline</span>
+            The OncoTrack AI <span className="text-gradient">Pipeline</span>
           </h2>
           <p className="font-sans text-slate-500 mt-3 max-w-lg mx-auto font-light">
-            From a single blood draw to a comprehensive genomic portrait — powered end-to-end by artificial intelligence.
+            A structured, multi-phase pathway from model training to global clinical research collaboration.
           </p>
         </div>
 

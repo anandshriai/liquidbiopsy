@@ -23,12 +23,12 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-2.5">
           <img 
-            src="/logo.png" 
+            src="/logo-Photoroom.png" 
             alt="ShriAI Logo" 
-            className="w-8 h-8 object-contain"
+            className="w-20 h-20 object-contain"
           />
           <span className="font-display font-700 text-lg text-slate-900 tracking-tight">
-            Shri<span className="text-gradient">AI</span>
+            Shri<span className="text-gradient">-AI</span>
           </span>
         </div>
 

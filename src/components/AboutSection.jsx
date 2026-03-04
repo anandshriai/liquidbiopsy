@@ -1,5 +1,5 @@
 export default function AboutSection() {
-  const tags = ['ctDNA Detection','cfRNA Profiling','AI Diagnostics','Methylation Analysis','Pan-cancer']
+  const tags = ['ctDNA Monitoring','Molecular Response Modeling','AI Oncology','Resistance Detection','Precision Monitoring']
 
   return (
     <section id="about" className="py-24 bg-gradient-to-br from-[#f8faff] to-white relative overflow-hidden">
@@ -17,15 +17,12 @@ export default function AboutSection() {
                   <stop offset="100%" stopColor="#2563eb" stopOpacity="0.05"/>
                 </radialGradient>
               </defs>
-              {/* Cell cluster */}
               <circle cx="100" cy="100" r="50" fill="url(#cellGrad)" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5"/>
               <circle cx="80" cy="85" r="22" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" strokeWidth="1.2"/>
               <circle cx="120" cy="90" r="18" fill="rgba(14,165,233,0.15)" stroke="#0ea5e9" strokeWidth="1.2"/>
               <circle cx="100" cy="118" r="16" fill="rgba(99,102,241,0.12)" stroke="#6366f1" strokeWidth="1.2"/>
-              {/* Nucleus */}
               <circle cx="80" cy="85" r="8" fill="rgba(37,99,235,0.3)" stroke="#2563eb" strokeWidth="1"/>
               <circle cx="120" cy="90" r="7" fill="rgba(14,165,233,0.25)" stroke="#0ea5e9" strokeWidth="1"/>
-              {/* Sparkles */}
               {[[40,40],[160,50],[155,155],[45,155],[100,20]].map(([x,y],i) => (
                 <circle key={i} cx={x} cy={y} r="2.5" fill="#3b82f6" opacity="0.35"/>
               ))}
@@ -37,8 +34,8 @@ export default function AboutSection() {
                 </svg>
               </div>
               <div>
-                <div className="font-display text-sm font-700 text-slate-800">30/11/2024</div>
-                <div className="text-xs text-slate-400">We are here to support your health</div>
+                <div className="font-display text-sm font-700 text-slate-800">Clinical Insight</div>
+                <div className="text-xs text-slate-400">Real-time molecular response tracking</div>
               </div>
               <button className="ml-auto w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
                 <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none">
@@ -48,10 +45,9 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Floating side card */}
           <div className="absolute -right-4 top-8 badge-float px-4 py-3 animate-float-slow">
-            <div className="text-xs text-slate-400 mb-1">Insight</div>
-            <div className="font-display font-700 text-slate-800 text-sm">AI Accuracy</div>
+            <div className="text-xs text-slate-400 mb-1">Performance</div>
+            <div className="font-display font-700 text-slate-800 text-sm">Molecular Prediction</div>
             <div className="mt-2 flex items-end gap-1">
               {[60,80,55,90,75,95,85].map((h,i) => (
                 <div key={i} className="w-2 rounded-t-sm bg-gradient-to-t from-blue-400 to-blue-200"
@@ -63,30 +59,28 @@ export default function AboutSection() {
 
         {/* Right — text */}
         <div>
-          <span className="pill mb-5 block w-fit">About Us</span>
+          <span className="pill mb-5 block w-fit">About OncoTrack AI</span>
           <h2 className="font-display font-800 text-4xl lg:text-5xl leading-[1.1] tracking-tight text-slate-900 mb-5">
-            Our team of highly trained{' '}
-            <span className="text-gradient">medical</span>{' '}
-            professionals is here to provide the best possible care.
+            Advancing{' '}
+            <span className="text-gradient">real-time oncology</span>{' '}
+            through molecular intelligence.
           </h2>
           <p className="font-sans text-slate-500 leading-relaxed mb-6 font-light">
-            BiopsAI combines cutting-edge AI with world-class molecular biology to deliver liquid biopsy solutions that are redefining early cancer detection, treatment monitoring, and precision oncology globally.
+            Shri AI is a precision oncology platform designed to transform how cancer treatment response is monitored. By analyzing circulating tumor DNA (ctDNA) through liquid biopsy and applying advanced machine learning models, we enable earlier detection of resistance, improved progression risk assessment, and more informed therapeutic decisions.
           </p>
 
-          {/* Tag chips */}
           <div className="flex flex-wrap gap-2 mb-8">
             {tags.map(t => (
               <span key={t} className="chip chip-blue">{t}</span>
             ))}
           </div>
 
-          {/* Two mini features */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             {[
-              { icon:'🧬', title:'Multi-Omic', desc:'cfDNA · cfRNA · Methylation' },
-              { icon:'⚡', title:'14hr Results', desc:'From sample to report' },
-              { icon:'🌍', title:'312+ Partners', desc:'Global clinical network' },
-              { icon:'🛡️', title:'HIPAA Secure', desc:'CAP & CLIA compliant' },
+              { icon:'🧬', title:'Dynamic ctDNA Tracking', desc:'Longitudinal molecular monitoring' },
+              { icon:'📊', title:'AI Risk Modeling', desc:'Time-to-event survival analysis' },
+              { icon:'⚡', title:'Early Resistance Alerts', desc:'Pre-radiologic mutation detection' },
+              { icon:'🔍', title:'Explainable Outputs', desc:'Transparent clinical decision support' },
             ].map(f => (
               <div key={f.title} className="flex items-start gap-3 card p-4">
                 <span className="text-xl">{f.icon}</span>
@@ -99,8 +93,8 @@ export default function AboutSection() {
           </div>
 
           <div className="flex gap-3">
-            <button className="btn-primary">Learn More</button>
-            <button className="btn-outline">Our Research</button>
+            <button className="btn-primary">Explore Clinical Validation</button>
+            <button className="btn-outline">View Technology</button>
           </div>
         </div>
       </div>
