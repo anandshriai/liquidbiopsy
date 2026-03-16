@@ -1,95 +1,152 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
+
+const links = [
+  { label: "What We Do", href: "#solution" },
+  { label: "Impact", href: "#impact" },
+  { label: "Team", href: "#team" },
+  { label: "Contact", href: "#contact" },
+];
+
+function scrollToHash(e, href, callback) {
+  e.preventDefault();
+  if (callback) callback();
+  const el = document.querySelector(href);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
+function MenuIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="18" x2="20" y2="18" />
+    </svg>
+  );
+}
+
+function CloseIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
-  }, [])
-
-  const links = ['Home', 'Platform', 'Pipeline', 'Data', 'Clinical', 'About']
+    const onScroll = () => setScrolled(window.scrollY > 32);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
-      scrolled
-        ? 'bg-white/90 backdrop-blur-xl shadow-[0_2px_20px_rgba(59,130,246,0.08)] py-3'
-        : 'bg-transparent py-5'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/90 shadow-[0_1px_0_rgba(0,0,0,.06)] backdrop-blur-xl"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
-        <div className="flex items-center gap-2.5">
-          <img 
-            src="/logo-Photoroom.png" 
-            alt="ShriAI Logo" 
-            className="w-20 h-20 object-contain"
-          />
-          <span className={`font-display font-700 text-lg tracking-tight ${
-            scrolled ? 'text-slate-900' : 'text-white'
-          }`}>
-            Shri<span className="text-gradient">-AI</span>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="text-xl font-bold tracking-tight"
+        >
+          <span className={scrolled ? "text-slate-900" : "text-white"}>
+            Vital
           </span>
-        </div>
+          <span className="text-emerald-500">AI</span>
+        </a>
 
-        {/* Links */}
-        <div className="hidden md:flex items-center gap-7">
-          {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`}
-               className={`font-sans text-sm hover:text-blue-600 transition-colors duration-200 font-medium ${
-                 scrolled ? 'text-slate-500' : 'text-white'
-               }`}>
-              {l}
-            </a>
+        {/* Desktop */}
+        <ul className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                onClick={(e) => scrollToHash(e, l.href)}
+                className={`text-sm font-medium transition-colors ${
+                  scrolled
+                    ? "text-slate-600 hover:text-slate-900"
+                    : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {l.label}
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Actions */}
-        <div className="hidden md:flex items-center gap-3">
-          <button className={`font-sans text-sm hover:text-blue-600 font-medium px-4 py-2 transition-colors ${
-            scrolled ? 'text-slate-600' : 'text-white'
-          }`}>
-            Log in
-          </button>
-          <button className="btn-primary text-sm px-5 py-2.5">
-            Get a Demo
-            <svg className="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden p-2 rounded-lg hover:bg-blue-50 transition-colors">
-          <div className={`w-5 h-0.5 transition-all duration-300 ${open ? 'rotate-45 translate-y-1.5' : ''} ${
-            scrolled ? 'bg-slate-600' : 'bg-white'
-          }`} />
-          <div className={`w-5 h-0.5 mt-1 transition-all duration-300 ${open ? 'opacity-0' : ''} ${
-            scrolled ? 'bg-slate-600' : 'bg-white'
-          }`} />
-          <div className={`w-5 h-0.5 mt-1 transition-all duration-300 ${open ? '-rotate-45 -translate-y-1.5' : ''} ${
-            scrolled ? 'bg-slate-600' : 'bg-white'
-          }`} />
+        {/* Mobile button */}
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className="md:hidden"
+          aria-label="Toggle navigation"
+        >
+          {open ? (
+            <CloseIcon
+              className={scrolled ? "text-slate-900" : "text-white"}
+            />
+          ) : (
+            <MenuIcon
+              className={scrolled ? "text-slate-900" : "text-white"}
+            />
+          )}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-blue-50 px-6 py-4 flex flex-col gap-3 shadow-card">
-          {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)}
-               className="font-sans text-sm text-slate-600 hover:text-blue-600 font-medium py-1 transition-colors">
-              {l}
-            </a>
+      {/* Mobile dropdown */}
+      <div
+        className={`overflow-hidden bg-white transition-all duration-300 md:hidden ${
+          open ? "max-h-64 border-t border-slate-100" : "max-h-0"
+        }`}
+      >
+        <ul className="space-y-1 px-6 py-3">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                onClick={(e) => scrollToHash(e, l.href, () => setOpen(false))}
+                className="block rounded-md px-3 py-2.5 text-sm text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                {l.label}
+              </a>
+            </li>
           ))}
-          <div className="flex gap-3 pt-2 border-t border-blue-50">
-            <button className="btn-outline text-sm px-4 py-2 flex-1">Log in</button>
-            <button className="btn-primary text-sm px-4 py-2 flex-1">Get a Demo</button>
-          </div>
-        </div>
-      )}
-    </nav>
-  )
+        </ul>
+      </div>
+    </header>
+  );
 }

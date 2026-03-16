@@ -65,19 +65,16 @@ const css = `
   @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
   @keyframes dotPulse { 0%,100%{box-shadow:0 0 7px rgba(59,130,246,0.9)} 50%{box-shadow:0 0 18px rgba(59,130,246,1)} }
   @keyframes breathe { 0%,100%{transform:scale(1);opacity:0.6} 50%{transform:scale(1.15);opacity:0.9} }
-  @keyframes horizontalDrift { 0%{transform:translateX(-30px)} 50%{transform:translateX(30px)} 100%{transform:translateX(-30px)} }
-  @keyframes verticalDrift { 0%{transform:translateY(-20px)} 50%{transform:translateY(20px)} 100%{transform:translateY(-20px)} }
   @keyframes grainShift { 0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 30%{transform:translate(3%,5%)} 50%{transform:translate(-8%,2%)} 70%{transform:translate(6%,-6%)} 90%{transform:translate(-3%,8%)} }
   @keyframes lineGrow { from{transform:scaleX(0)} to{transform:scaleX(1)} }
   @keyframes slowZoom { 0%{transform:scale(1)} 100%{transform:scale(1.08)} }
-  @keyframes glitchGrain { 0%{opacity:0.03} 20%{opacity:0.06} 40%{opacity:0.02} 60%{opacity:0.05} 80%{opacity:0.03} 100%{opacity:0.04} }
   @keyframes textReveal { from{opacity:0;transform:translateY(80px) rotateX(15deg)} to{opacity:1;transform:translateY(0) rotateX(0deg)} }
-  @keyframes subtleFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes pulseRing { 0%{transform:scale(0.95);opacity:0.5} 50%{transform:scale(1.05);opacity:0.8} 100%{transform:scale(0.95);opacity:0.5} }
+  @keyframes pulseRing { 0%{transform:translate(-50%,-50%) scale(0.95);opacity:0.5} 50%{transform:translate(-50%,-50%) scale(1.05);opacity:0.8} 100%{transform:translate(-50%,-50%) scale(0.95);opacity:0.5} }
   @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-  @keyframes counterUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
   @keyframes marqueeScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  @keyframes typeBarPulse { 0%,100%{opacity:0.4;width:2px} 50%{opacity:1;width:3px} }
+  @keyframes floatUp { 0%{opacity:0;transform:translateY(30px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes widthExpand { from{width:0} to{width:72px} }
+  @keyframes glowPulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
 
   .sai-hero * { box-sizing:border-box; }
   .sai-hero { font-family:'Plus Jakarta Sans', sans-serif; }
@@ -88,58 +85,9 @@ const css = `
     top: -50%; left: -50%; right: -50%; bottom: -50%;
     width: 200%; height: 200%;
     pointer-events: none; z-index: 9999;
-    opacity: 0.028;
+    opacity: 0.022;
     animation: grainShift 0.5s steps(1) infinite;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  .sai-grainy-text {
-    background: linear-gradient(
-      135deg,
-      #0a1628 0%,
-      #1a2d52 15%,
-      #1d4ed8 30%,
-      #3b82f6 45%,
-      #0f172a 55%,
-      #1e3a6e 70%,
-      #2563eb 85%,
-      #0a1628 100%
-    );
-    background-size: 300% 300%;
-    animation: gradientShift 8s ease infinite;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    filter: url(#grainy-filter);
-  }
-
-  .sai-grainy-text::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.12;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    animation: glitchGrain 2s steps(3) infinite;
-  }
-
-  .sai-grainy-accent {
-    background: linear-gradient(
-      135deg,
-      #1d4ed8 0%,
-      #3b82f6 25%,
-      #60a5fa 50%,
-      #2563eb 75%,
-      #1d4ed8 100%
-    );
-    background-size: 200% 200%;
-    animation: gradientShift 6s ease infinite;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
   }
 
   .sai-shimmer {
@@ -219,7 +167,7 @@ const css = `
     animation: lineGrow 1.2s ease-out 0.6s both;
   }
 
-  /* ── PRECISION HERO SECTION ── */
+  /* ── PRECISION HERO — SPLIT LAYOUT ── */
   .sai-precision-hero {
     min-height: 100vh;
     position: relative;
@@ -229,16 +177,51 @@ const css = `
     background: #070c18;
   }
 
-  .sai-precision-hero .sai-hero-image-wrap {
+  /* Top Bar */
+  .sai-precision-topbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    animation: fadeIn 1s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+  }
+
+  .sai-precision-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .sai-precision-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Split content area */
+  .sai-precision-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  /* Left Column — Image */
+  .sai-precision-left {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sai-precision-left .sai-hero-image-wrap {
     position: absolute;
     inset: 0;
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  .sai-precision-hero .sai-hero-image-wrap img {
+  .sai-precision-left .sai-hero-image-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -246,174 +229,244 @@ const css = `
     animation: slowZoom 25s ease-in-out infinite alternate;
   }
 
-  .sai-precision-hero .sai-hero-image-overlay {
+  .sai-precision-left .sai-hero-image-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
     background:
       linear-gradient(180deg,
-        rgba(7,12,24,0.35) 0%,
-        rgba(7,12,24,0.15) 25%,
-        rgba(7,12,24,0.25) 50%,
-        rgba(7,12,24,0.7) 75%,
+        rgba(7,12,24,0.5) 0%,
+        rgba(7,12,24,0.1) 30%,
+        rgba(7,12,24,0.15) 50%,
+        rgba(7,12,24,0.6) 75%,
         rgba(7,12,24,0.95) 100%
       );
   }
 
-  .sai-precision-hero .sai-hero-image-overlay::after {
+  .sai-precision-left .sai-hero-image-overlay::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
       radial-gradient(ellipse at 50% 80%, rgba(29,78,216,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 20%, rgba(59,130,246,0.04) 0%, transparent 50%);
+      linear-gradient(90deg, transparent 50%, rgba(7,12,24,0.85) 100%);
   }
 
-  .sai-hero-content-top {
-    position: relative;
-    z-index: 5;
-    flex: 1;
+  /* Right Column */
+  .sai-precision-right {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 32px 0;
-    text-align: center;
-    min-height: 100vh;
-    padding-top: 120px;
-    padding-bottom: 100px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 64px 80px 88px;
+    position: relative;
+    z-index: 5;
   }
 
-  .sai-hero-headline {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(2.8rem, 8vw, 6.5rem);
-    font-weight: 700;
-    line-height: 1.0;
-    letter-spacing: -0.04em;
-    margin-bottom: 0;
+  /* Vertical Separator */
+  .sai-precision-separator {
+    position: absolute;
+    top: 8%;
+    bottom: 8%;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(59,130,246,0.1) 20%, rgba(59,130,246,0.18) 50%, rgba(59,130,246,0.1) 80%, transparent);
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  /* Background glow for right side */
+  .sai-right-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sai-right-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(59,130,246,0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulseRing 7s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sai-right-ring-2 {
+    width: 520px;
+    height: 520px;
+    border-color: rgba(59,130,246,0.025);
+    animation: pulseRing 9s ease-in-out 2s infinite;
+  }
+
+  /* Right label */
+  .sai-right-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    animation: floatUp 1s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+  }
+
+  /* Clean Heading — No Grain */
+  .sai-clean-heading {
     position: relative;
+    margin: 0;
+    padding: 0;
     perspective: 800px;
   }
 
-  .sai-hero-headline .line {
+  .sai-hw {
     display: block;
-    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) both;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(3.2rem, 6.5vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    position: relative;
+    z-index: 2;
   }
-  .sai-hero-headline .line:nth-child(1) { animation-delay: 0.1s; }
-  .sai-hero-headline .line:nth-child(2) { animation-delay: 0.25s; }
-  .sai-hero-headline .line:nth-child(3) { animation-delay: 0.4s; }
 
-  .sai-hero-headline .line-light {
-    color: rgba(255,255,255,0.92);
+  .sai-hw-light {
     font-weight: 300;
+    color: rgba(148,163,184,0.5);
+    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both;
   }
 
-  .sai-hero-headline .line-bold {
+  .sai-hw-bold {
     font-weight: 800;
     background: linear-gradient(
       135deg,
-      #e2e8f0 0%,
-      #93c5fd 20%,
-      #60a5fa 35%,
-      #ffffff 50%,
-      #93c5fd 65%,
-      #3b82f6 80%,
-      #e2e8f0 100%
+      #93c5fd 0%,
+      #60a5fa 20%,
+      #ffffff 45%,
+      #e2e8f0 55%,
+      #60a5fa 75%,
+      #3b82f6 100%
     );
-    background-size: 300% 300%;
-    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.25s both, gradientShift 6s ease infinite;
+    background-size: 200% 200%;
+    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both,
+               gradientShift 6s ease infinite;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    position: relative;
   }
 
-  .sai-hero-headline .line-bold::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.08;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  .sai-hero-headline .line-accent {
-    font-weight: 700;
-    font-size: clamp(2.4rem, 6.5vw, 5.5rem);
+  .sai-hw-accent {
+    font-weight: 600;
     background: linear-gradient(
       90deg,
       #3b82f6 0%,
-      #60a5fa 20%,
-      #93c5fd 40%,
-      #bfdbfe 50%,
-      #93c5fd 60%,
-      #60a5fa 80%,
+      #60a5fa 30%,
+      #93c5fd 50%,
+      #60a5fa 70%,
       #3b82f6 100%
     );
-    background-size: 200% auto;
-    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s both, shimmer 4s linear infinite;
+    background-size: 200% 200%;
+    animation: textReveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.7s both,
+               gradientShift 5s ease infinite;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    position: relative;
   }
 
-  .sai-hero-headline .line-accent::after {
+  /* Right accent line */
+  .sai-right-accent-line {
+    width: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(59,130,246,0.5), rgba(59,130,246,0.02));
+    margin-top: 40px;
+    margin-bottom: 24px;
+    transform-origin: left;
+    animation: lineGrow 1.2s ease-out 0.9s both;
+  }
+
+  /* Right body text */
+  .sai-right-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.8;
+    max-width: 380px;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    animation: floatUp 1s cubic-bezier(0.16,1,0.3,1) 1s both;
+  }
+
+  /* Right CTA row */
+  .sai-right-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 36px;
+    animation: floatUp 1s cubic-bezier(0.16,1,0.3,1) 1.1s both;
+  }
+
+  .sai-right-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sai-right-cta-primary {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    color: white;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.3), 0 2px 8px rgba(59,130,246,0.15);
+  }
+  .sai-right-cta-primary::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.15;
-    mix-blend-mode: soft-light;
-    pointer-events: none;
-    animation: glitchGrain 1.5s steps(4) infinite;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    transition: left 0.5s;
+  }
+  .sai-right-cta-primary:hover::before { left: 100%; }
+  .sai-right-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(59,130,246,0.4);
   }
 
-  .sai-hero-sub-line {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-top: 28px;
-    font-weight: 400;
-    animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+  .sai-right-cta-ghost {
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .sai-right-cta-ghost:hover {
+    background: rgba(59,130,246,0.08);
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(59,130,246,0.3);
+    transform: translateY(-2px);
   }
 
-  .sai-type-bar {
-    margin-top: 24px;
-    animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.7s both;
-  }
-
-  .sai-hero-stats-row {
-    display: flex;
-    gap: 48px;
-    margin-top: 40px;
-    animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.8s both;
-  }
-
-  .sai-hero-stat {
-    text-align: center;
-  }
-
-  .sai-hero-stat-value {
-    font-family: 'Outfit', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #60a5fa;
-    letter-spacing: -0.02em;
-  }
-
-  .sai-hero-stat-label {
-    font-size: 10px;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-top: 4px;
-    font-weight: 500;
-  }
-
+  /* Scroll indicator */
   .sai-scroll-indicator {
     position: absolute;
     bottom: 28px;
@@ -428,77 +481,38 @@ const css = `
     animation: fadeIn 1s 1.5s both;
   }
 
+  /* Corner accents */
   .sai-corner-accent {
     position: absolute;
     z-index: 4;
     pointer-events: none;
   }
-
   .sai-corner-accent.top-left {
     top: 32px; left: 32px;
-    width: 60px; height: 60px;
-    border-left: 1px solid rgba(59,130,246,0.2);
-    border-top: 1px solid rgba(59,130,246,0.2);
+    width: 48px; height: 48px;
+    border-left: 1px solid rgba(59,130,246,0.15);
+    border-top: 1px solid rgba(59,130,246,0.15);
   }
-
   .sai-corner-accent.top-right {
     top: 32px; right: 32px;
-    width: 60px; height: 60px;
-    border-right: 1px solid rgba(59,130,246,0.2);
-    border-top: 1px solid rgba(59,130,246,0.2);
+    width: 48px; height: 48px;
+    border-right: 1px solid rgba(59,130,246,0.15);
+    border-top: 1px solid rgba(59,130,246,0.15);
   }
-
   .sai-corner-accent.bottom-left {
     bottom: 32px; left: 32px;
-    width: 60px; height: 60px;
-    border-left: 1px solid rgba(59,130,246,0.15);
-    border-bottom: 1px solid rgba(59,130,246,0.15);
+    width: 48px; height: 48px;
+    border-left: 1px solid rgba(59,130,246,0.1);
+    border-bottom: 1px solid rgba(59,130,246,0.1);
   }
-
   .sai-corner-accent.bottom-right {
     bottom: 32px; right: 32px;
-    width: 60px; height: 60px;
-    border-right: 1px solid rgba(59,130,246,0.15);
-    border-bottom: 1px solid rgba(59,130,246,0.15);
+    width: 48px; height: 48px;
+    border-right: 1px solid rgba(59,130,246,0.1);
+    border-bottom: 1px solid rgba(59,130,246,0.1);
   }
 
-  .sai-floating-tag {
-    position: absolute;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    animation: subtleFloat 5s ease-in-out infinite;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.7);
-  }
-
-  .sai-floating-tag.tag-1 {
-    top: 18%;
-    left: 5%;
-    animation-delay: 0s;
-  }
-
-  .sai-floating-tag.tag-2 {
-    top: 25%;
-    right: 5%;
-    animation-delay: 1.5s;
-  }
-
-  .sai-floating-tag.tag-3 {
-    top: 50%;
-    left: 3%;
-    animation-delay: 3s;
-  }
-
+  /* Marquee */
   .sai-marquee-strip {
     position: absolute;
     bottom: 70px;
@@ -506,15 +520,13 @@ const css = `
     z-index: 5;
     overflow: hidden;
     pointer-events: none;
-    opacity: 0.08;
+    opacity: 0.04;
   }
-
   .sai-marquee-track {
     display: flex;
     white-space: nowrap;
     animation: marqueeScroll 30s linear infinite;
   }
-
   .sai-marquee-item {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(40px, 5vw, 70px);
@@ -525,242 +537,293 @@ const css = `
     letter-spacing: 0.05em;
   }
 
-  /* ── RESPONSIVE STYLES ── */
-  
-  /* Tablets and smaller desktops */
+  /* Left overlay stats */
+  .sai-left-overlay-stats {
+    position: absolute;
+    bottom: 48px;
+    left: 40px;
+    right: 40px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    animation: floatUp 1s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+  }
+
+  .sai-left-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sai-left-stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+
+  .sai-left-stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .sai-left-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ── RESPONSIVE ── */
+
   @media (max-width: 1200px) {
+    .sai-precision-right {
+      padding: 60px 40px 60px 64px;
+    }
     .sai-hero-grid {
       gap: 50px !important;
       padding: 120px 40px 80px !important;
     }
-    
     .sai-hero-right .sai-glass-card {
       transform: scale(0.9);
     }
   }
-  
-  /* Tablets */
+
+  @media (max-width: 1024px) {
+    .sai-hw {
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+    }
+    .sai-precision-right {
+      padding: 60px 32px 60px 52px;
+    }
+  }
+
   @media (max-width: 900px) {
+    .sai-precision-content {
+      grid-template-columns: 1fr;
+    }
+    .sai-precision-left {
+      min-height: 50vh;
+    }
+    .sai-precision-right {
+      padding: 56px 32px;
+      align-items: center;
+      text-align: center;
+    }
+    .sai-clean-heading {
+      text-align: center;
+    }
+    .sai-right-label {
+      justify-content: center;
+      width: 100%;
+    }
+    .sai-right-accent-line {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sai-right-body {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .sai-right-cta-row {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .sai-precision-separator {
+      display: none;
+    }
+    .sai-hw {
+      font-size: clamp(2.5rem, 9vw, 5rem);
+    }
+    .sai-precision-topbar {
+      padding: 16px 24px;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sai-left-overlay-stats {
+      bottom: 32px;
+      left: 24px;
+      right: 24px;
+      gap: 20px;
+    }
+    .sai-corner-accent { display: none !important; }
+    .sai-marquee-strip { bottom: 40px; opacity: 0.03; }
     .sai-hero-grid {
       grid-template-columns: 1fr !important;
       gap: 48px !important;
       padding: 100px 24px 60px !important;
     }
     .sai-hero-right { display: none !important; }
-    .sai-hero-stats-row { gap: 28px; }
-    .sai-floating-tag { display: none !important; }
-    .sai-corner-accent { display: none !important; }
-    .sai-marquee-strip { bottom: 60px; }
-    .sai-hero-content-top {
-      padding-top: 100px;
-    }
-    
-    .sai-precision-hero {
-      min-height: auto;
-      aspect-ratio: 2568 / 1696;
-    }
-    
-    .sai-precision-hero .sai-hero-image-wrap img {
-      object-fit: contain;
-      animation: none;
-    }
-    
-    .sai-hero-content-top {
-      min-height: auto;
-      padding-top: 60px;
-      padding-bottom: 60px;
-    }
   }
-  
-  /* Mobile landscape and small tablets */
+
   @media (max-width: 768px) {
-    .sai-precision-hero {
-      min-height: auto;
-      width: 100%;
+    .sai-precision-left {
+      min-height: 42vh;
     }
-    
-    .sai-precision-hero .sai-hero-image-wrap {
-      position: relative;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 2568 / 1696;
+    .sai-precision-right {
+      padding: 44px 24px;
     }
-    
-    .sai-precision-hero .sai-hero-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center center;
-      animation: none;
+    .sai-hw {
+      font-size: clamp(2.2rem, 10vw, 4rem);
     }
-    
-    .sai-precision-hero .sai-hero-image-overlay {
-      background: linear-gradient(180deg,
-        rgba(7,12,24,0.2) 0%,
-        rgba(7,12,24,0.1) 40%,
-        rgba(7,12,24,0.4) 70%,
-        rgba(7,12,24,0.85) 100%
-      );
+    .sai-right-label {
+      font-size: 10px;
+      margin-bottom: 22px;
     }
-    
-    .sai-hero-content-top {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      min-height: auto;
-      padding: 20px 16px 40px;
-      justify-content: flex-end;
+    .sai-right-accent-line {
+      margin-top: 28px;
+      margin-bottom: 18px;
     }
-    
-    .sai-hero-sub-line {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      margin-top: 16px;
+    .sai-right-body {
+      font-size: 13px;
     }
-    
-    .sai-marquee-strip {
-      bottom: 40px;
-      opacity: 0.05;
+    .sai-left-overlay-stats {
+      bottom: 24px;
+      left: 20px;
+      gap: 16px;
     }
-    
+    .sai-left-stat-value { font-size: 18px; }
+    .sai-left-stat-label { font-size: 9px; }
     .sai-marquee-item {
       font-size: 28px;
       padding: 0 30px;
     }
-    
     .sai-scroll-indicator {
       bottom: 12px;
     }
-    
-    .sai-btn-primary,
-    .sai-btn-ghost {
+    .sai-btn-primary, .sai-btn-ghost {
       padding: 14px 28px;
       font-size: 14px;
     }
-    
     .sai-terminal {
       padding: 10px 16px;
       gap: 8px;
     }
-    
     .sai-badge {
       padding: 6px 14px;
       font-size: 11px;
     }
+    .sai-precision-topbar {
+      padding: 14px 20px;
+    }
+    .sai-right-cta-btn {
+      padding: 12px 26px;
+      font-size: 12px;
+    }
   }
-  
-  /* Mobile portrait */
+
   @media (max-width: 480px) {
-    .sai-precision-hero {
-      background: #070c18;
+    .sai-precision-left {
+      min-height: 38vh;
     }
-    
-    .sai-precision-hero .sai-hero-image-wrap {
-      aspect-ratio: 2568 / 1696;
+    .sai-precision-right {
+      padding: 36px 16px 50px;
     }
-    
-    .sai-hero-content-top {
-      padding: 16px 12px 32px;
+    .sai-hw {
+      font-size: clamp(2rem, 12vw, 3.5rem);
     }
-    
-    .sai-hero-sub-line {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      margin-top: 12px;
+    .sai-right-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
     }
-    
+    .sai-right-accent-line {
+      width: 48px;
+      margin-top: 22px;
+      margin-bottom: 14px;
+    }
+    .sai-right-body {
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .sai-left-overlay-stats {
+      bottom: 16px;
+      left: 16px;
+      gap: 12px;
+    }
+    .sai-left-stat-value { font-size: 16px; }
+    .sai-left-stat-divider { height: 24px; }
     .sai-marquee-strip {
       bottom: 30px;
     }
-    
     .sai-marquee-item {
       font-size: 22px;
       padding: 0 20px;
     }
-    
     .sai-hero-grid {
       padding: 80px 16px 50px !important;
     }
-    
-    .sai-btn-primary,
-    .sai-btn-ghost {
+    .sai-btn-primary, .sai-btn-ghost {
       padding: 12px 24px;
       font-size: 13px;
       width: 100%;
       justify-content: center;
     }
-    
-    .sai-a3 > div,
-    .sai-a3 {
+    .sai-a3 > div, .sai-a3 {
       flex-direction: column !important;
       width: 100%;
     }
-    
     .sai-terminal {
       width: 100%;
       justify-content: flex-start;
     }
-    
-    .sai-hero-stats-row {
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    
     .sai-a4 {
       flex-wrap: wrap !important;
       justify-content: center !important;
       gap: 16px !important;
     }
-    
+    .sai-right-cta-row {
+      flex-direction: column;
+      width: 100%;
+    }
+    .sai-right-cta-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .sai-precision-topbar {
+      padding: 12px 16px;
+      gap: 8px;
+    }
     .sai-scroll-indicator {
       bottom: 8px;
       opacity: 0.2;
     }
-    
     .sai-scroll-indicator div {
       height: 30px !important;
     }
   }
-  
-  /* Very small screens */
+
   @media (max-width: 360px) {
     .sai-hero-grid {
       padding: 70px 12px 40px !important;
     }
-    
-    .sai-hero-sub-line {
-      font-size: 9px;
-    }
-    
     .sai-badge {
       padding: 5px 12px;
       font-size: 10px;
     }
+    .sai-hw {
+      font-size: clamp(1.8rem, 13vw, 3rem);
+    }
   }
-  
-  /* Landscape orientation on mobile */
+
   @media (max-height: 500px) and (orientation: landscape) {
     .sai-precision-hero {
       min-height: 100vh;
     }
-    
-    .sai-precision-hero .sai-hero-image-wrap {
-      position: absolute;
-      inset: 0;
-      aspect-ratio: auto;
+    .sai-precision-content {
+      grid-template-columns: 1fr 1fr;
     }
-    
-    .sai-precision-hero .sai-hero-image-wrap img {
-      object-fit: cover;
+    .sai-precision-right {
+      padding: 40px 32px;
     }
-    
-    .sai-hero-content-top {
-      position: relative;
-      min-height: 100vh;
-      justify-content: center;
-      padding-top: 40px;
+    .sai-hw {
+      font-size: clamp(1.8rem, 4vw, 3rem);
     }
   }
 `
@@ -782,26 +845,153 @@ export default function HeroSection() {
       <style>{css}</style>
       <div className="sai-grain" />
 
-      {/* SVG noise filter for grainy text */}
-      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <filter id="grainy-filter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-            <feColorMatrix type="saturate" values="0" />
-            <feBlend in="SourceGraphic" mode="multiply" />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* ── PRECISION HERO WITH IMAGE ── */}
+      {/* ── PRECISION HERO — SPLIT LAYOUT ── */}
       <section className="sai-precision-hero">
-        {/* Hospital image background */}
-        <div className="sai-hero-image-wrap">
-          <img
-            src="/cover-image.png"
-            alt="Medical facility"
-          />
-          <div className="sai-hero-image-overlay" />
+
+        {/* ── TOP BAR — Badge + Subtitle ── */}
+        <div className="sai-precision-topbar">
+          <div className="sai-precision-topbar-left">
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.04)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              borderRadius: 100,
+              padding: '7px 18px', fontSize: 11,
+              color: 'rgba(255,255,255,0.55)',
+              fontWeight: 500, letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              border: '1px solid rgba(255,255,255,0.06)',
+              fontFamily: "'DM Sans', sans-serif",
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: '#3b82f6',
+                boxShadow: '0 0 10px rgba(59,130,246,0.8)',
+                animation: 'dotPulse 2s ease-in-out infinite',
+                flexShrink: 0,
+              }} />
+              Launching Soon — Open Source · Not for Profit
+            </span>
+          </div>
+
+          <div className="sai-precision-topbar-right">
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: 11,
+              color: 'rgba(255,255,255,0.25)',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              fontWeight: 400,
+            }}>
+              Next-Generation Healthcare Intelligence
+            </span>
+          </div>
+        </div>
+
+        {/* ── SPLIT CONTENT ── */}
+        <div className="sai-precision-content">
+
+          {/* ── LEFT: Image ── */}
+          <div className="sai-precision-left">
+            <div className="sai-hero-image-wrap">
+              <img
+                src="/cover-image.png"
+                alt="Medical facility"
+              />
+              <div className="sai-hero-image-overlay" />
+            </div>
+
+            {/* Dot grid */}
+            <div style={{
+              position: 'absolute', inset: 0, opacity: 0.03, zIndex: 3,
+              backgroundImage: 'radial-gradient(circle, rgba(147,197,253,0.8) 0.5px, transparent 0.5px)',
+              backgroundSize: '40px 40px', pointerEvents: 'none',
+            }} />
+
+            {/* Stats overlay at bottom of image */}
+            <div className="sai-left-overlay-stats">
+              <div className="sai-left-stat">
+                <span className="sai-left-stat-value">98.2%</span>
+                <span className="sai-left-stat-label">Accuracy</span>
+              </div>
+              <div className="sai-left-stat-divider" />
+              <div className="sai-left-stat">
+                <span className="sai-left-stat-value">150+</span>
+                <span className="sai-left-stat-label">Communities</span>
+              </div>
+              <div className="sai-left-stat-divider" />
+              <div className="sai-left-stat">
+                <span className="sai-left-stat-value">100%</span>
+                <span className="sai-left-stat-label">Privacy</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── RIGHT: Clean Text ── */}
+          <div className="sai-precision-right">
+            {/* Background glow */}
+            <div className="sai-right-glow" />
+            <div className="sai-right-ring" />
+            <div className="sai-right-ring sai-right-ring-2" />
+
+            {/* Subtle dot grid */}
+            <div style={{
+              position: 'absolute', inset: 0, opacity: 0.015, zIndex: 0,
+              backgroundImage: 'radial-gradient(circle, rgba(147,197,253,0.5) 0.5px, transparent 0.5px)',
+              backgroundSize: '48px 48px', pointerEvents: 'none',
+            }} />
+
+            {/* Label */}
+            <span className="sai-right-label">
+              <span style={{
+                display: 'inline-block',
+                width: 22, height: 1,
+                background: 'rgba(59,130,246,0.35)',
+                marginRight: 14,
+                flexShrink: 0,
+              }} />
+              Healthcare AI Platform
+            </span>
+
+            {/* Main clean heading — NO grain */}
+            <h1 className="sai-clean-heading">
+              <span className="sai-hw sai-hw-light">Realtime</span>
+              <span className="sai-hw sai-hw-bold">Precision</span>
+              <span className="sai-hw sai-hw-accent">Monitoring</span>
+            </h1>
+
+            {/* Accent line */}
+            <div className="sai-right-accent-line" />
+
+            {/* Body text */}
+            <p className="sai-right-body">
+              AI-powered diagnostics delivering real-time precision insights
+              for next-generation healthcare monitoring — accessible, private,
+              and built for every community.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="sai-right-cta-row">
+              <button className="sai-right-cta-btn sai-right-cta-primary">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="2" stroke="white" strokeWidth="1.5" />
+                  <path d="M5 8h6M8 5v6" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Book a Demo
+              </button>
+              <button className="sai-right-cta-btn sai-right-cta-ghost">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
+                  <path d="M6.5 5.5l4 2.5-4 2.5V5.5z" fill="rgba(255,255,255,0.5)" />
+                </svg>
+                Learn More
+              </button>
+            </div>
+          </div>
+
+          {/* Vertical separator */}
+          <div className="sai-precision-separator" />
         </div>
 
         {/* Corner accents */}
@@ -809,52 +999,6 @@ export default function HeroSection() {
         <div className="sai-corner-accent top-right" />
         <div className="sai-corner-accent bottom-left" />
         <div className="sai-corner-accent bottom-right" />
-
-        {/* Subtle dot grid */}
-        <div style={{
-          position: 'absolute', inset: 0, opacity: 0.04, zIndex: 3,
-          backgroundImage: 'radial-gradient(circle, rgba(147,197,253,0.8) 0.5px, transparent 0.5px)',
-          backgroundSize: '40px 40px', pointerEvents: 'none',
-        }} />
-
-        {/* Content */}
-        <div className="sai-hero-content-top" style={{
-          transform: `translateY(${scrollY * 0.2}px)`,
-          transition: 'transform 0.05s linear',
-        }}>
-          {/* Top badge */}
-          <div style={{
-            marginBottom: '32px',
-            animation: 'fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0s both',
-          }}>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              borderRadius: 100,
-              padding: '8px 20px', fontSize: 12,
-              color: 'rgba(255,255,255,0.6)',
-              fontWeight: 500, letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              border: '1px solid rgba(255,255,255,0.08)',
-            }}>
-              <span style={{
-                width: 7, height: 7, borderRadius: '50%',
-                background: '#3b82f6',
-                boxShadow: '0 0 10px rgba(59,130,246,0.8)',
-                animation: 'dotPulse 2s ease-in-out infinite',
-              }} />
-              Launching Soon — Open Source · Not for Profit
-            </span>
-          </div>
-
-
-          {/* Subtitle */}
-          <p className="sai-hero-sub-line">
-            Next-Generation Healthcare Intelligence
-          </p>
-        </div>
 
         {/* Marquee strip */}
         <div className="sai-marquee-strip">
@@ -924,7 +1068,6 @@ export default function HeroSection() {
           animation: 'breathe 10s ease-in-out 4s infinite',
         }} />
 
-
         <div className="sai-hero-grid" style={{
           maxWidth: '1300px', margin: '0 auto',
           padding: '130px 56px 90px', width: '100%',
@@ -972,7 +1115,6 @@ export default function HeroSection() {
               </p>
             </div>
 
-            {/* Decorative divider */}
             <div className="sai-a1 sai-divider-line" style={{
               maxWidth: '160px', marginBottom: '22px',
             }} />
@@ -1016,7 +1158,6 @@ export default function HeroSection() {
               </button>
             </div>
 
-            {/* Trust indicators */}
             <div className="sai-a4" style={{
               display: 'flex', gap: '24px', alignItems: 'center',
             }}>
@@ -1054,7 +1195,6 @@ export default function HeroSection() {
               maxWidth: '560px',
               aspectRatio: '1200 / 672',
             }}>
-              {/* Main image container */}
               <div style={{
                 position: 'relative',
                 zIndex: 2,
@@ -1083,7 +1223,6 @@ export default function HeroSection() {
                 }} />
               </div>
 
-              {/* Floating accuracy card */}
               <div className="sai-glass-card" style={{
                 position: 'absolute',
                 top: '-55px', right: '-115px',
@@ -1113,7 +1252,6 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating privacy card */}
               <div className="sai-glass-card" style={{
                 position: 'absolute',
                 top: '50%', left: '-120px',
@@ -1130,7 +1268,6 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating communities card */}
               <div className="sai-glass-card" style={{
                 position: 'absolute',
                 bottom: '-50px', right: '-100px',

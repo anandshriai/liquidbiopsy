@@ -1,48 +1,35 @@
-import { useEffect } from 'react'
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
-import DNA3DSection from './components/DNA3DSection'
-import AboutSection from './components/AboutSection'
-import PipelineSection from './components/PipelineSection'
-import AIEngineSection from './components/AIEngineSection'
-import ServicesSection from './components/ServicesSection'
-import SupportSection from './components/SupportSection'
-import TestimonialsSection from './components/TestimonialsSection'
-import CTASection from './components/CTASection'
-import Footer from './components/Footer'
-
-
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import DNA3DSection from "./components/DNA3DSection";
+import ProblemSection from "./components/ProblemSection";
+import SolutionSection from "./components/SolutionSection";
+import ImpactSection from "./components/ImpactSection";
+import CaseStudySection from "./components/CaseStudySection";
+import PartnersSection from "./components/PartnersSection";
+import TeamSection from "./components/TeamSection";
+import CTASection from "./components/CTASection";
+import Footer from "./components/Footer";
 
 export default function App() {
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible')
-        }),
-      { threshold: 0.1 }
-    )
-
-    document.querySelectorAll('.reveal').forEach((el) => obs.observe(el))
-
-    return () => obs.disconnect()
-  }, [])
-
   return (
-    <div className="min-h-screen bg-[#f8faff]">
+    <div className="min-h-screen bg-white antialiased">
       <Navbar />
       <main>
         <HeroSection />
+
+        {/* Smooth dark → white transition bridge */}
+        <div className="h-32 bg-gradient-to-b from-slate-950 to-white" />
+
         <DNA3DSection />
-        <AboutSection />
-        <PipelineSection />
-        <AIEngineSection />
-        <ServicesSection />
-        <SupportSection />
-        <TestimonialsSection />
+        <ProblemSection />
+        <SolutionSection />
+        <ImpactSection />
+        <CaseStudySection />
+        <PartnersSection />
+        <TeamSection />
         <CTASection />
       </main>
       <Footer />
     </div>
-  )
+  );
 }
