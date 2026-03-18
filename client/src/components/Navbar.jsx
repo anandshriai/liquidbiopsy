@@ -85,9 +85,9 @@ export default function Navbar() {
           className="text-xl font-bold tracking-tight"
         >
           <span className={scrolled ? "text-slate-900" : "text-white"}>
-            Vital
+            Onco
           </span>
-          <span className="text-emerald-500">AI</span>
+          <span className="text-emerald-500">TraceAI</span>
         </a>
 
         {/* Desktop */}
